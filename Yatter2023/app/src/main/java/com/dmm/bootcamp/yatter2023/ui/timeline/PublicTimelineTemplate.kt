@@ -32,6 +32,7 @@ fun PublicTimelineTemplate(
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
 ) {
+    val pullRefreshState = rememberPullRefreshState(isRefreshing, onRefresh)
     Scaffold(
         topBar = {
             TopAppBar(
@@ -41,7 +42,6 @@ fun PublicTimelineTemplate(
             )
         }
     ) {
-        val pullRefreshState = rememberPullRefreshState(isRefreshing, onRefresh)
         Box(
             modifier = Modifier
                 .fillMaxSize()
