@@ -4,6 +4,7 @@ package com.dmm.bootcamp.yatter2023.ui.timeline
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -13,6 +14,9 @@ import com.dmm.bootcamp.yatter2023.ui.timeline.bindingmodel.StatusBindingModel
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
@@ -28,30 +32,42 @@ fun PublicTimelineTemplate(
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
 ) {
-    val pullRefreshState = rememberPullRefreshState(isRefreshing, onRefresh)
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .pullRefresh(pullRefreshState),
-        contentAlignment = Alignment.Center,
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = "タイムライン")
+                },
+            )
+        }
     ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(8.dp),
+        val pullRefreshState = rememberPullRefreshState(isRefreshing, onRefresh)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+                .pullRefresh(pullRefreshState),
+            contentAlignment = Alignment.Center,
         ) {
-            items(statusList) { item ->
-                StatusRow(statusBindingModel = item)
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(8.dp),
+            ) {
+                items(statusList) { item ->
+                    StatusRow(statusBindingModel = item)
+                }
+            }
+            PullRefreshIndicator(
+                isRefreshing,
+                pullRefreshState,
+                Modifier.align(Alignment.TopCenter)
+            )
+            if(isLoading) {
+                CircularProgressIndicator()
             }
         }
-        PullRefreshIndicator(
-            isRefreshing,
-            pullRefreshState,
-            Modifier.align(Alignment.TopCenter)
-        )
-        if(isLoading) {
-            CircularProgressIndicator()
-        }
     }
+
 }
 
 @Preview
