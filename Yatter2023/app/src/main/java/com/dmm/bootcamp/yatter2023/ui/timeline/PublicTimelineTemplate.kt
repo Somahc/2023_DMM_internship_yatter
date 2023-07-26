@@ -68,6 +68,14 @@ private fun PublicTimelineTemplatePreview() {
                         avatar = null,
                         content = "preview content",
                         attachmentMediaList = listOf()
+                    ),
+                    StatusBindingModel(
+                        id = "id",
+                        displayName = "display name",
+                        username = "username",
+                        avatar = null,
+                        content = "preview content",
+                        attachmentMediaList = listOf()
                     )
                 ),
                 isLoading = false,
