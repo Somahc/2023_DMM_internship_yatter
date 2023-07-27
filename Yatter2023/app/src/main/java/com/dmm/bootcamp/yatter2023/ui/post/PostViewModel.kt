@@ -37,7 +37,10 @@ class PostViewModel(
         }
     }
 
-    fun onChangedStatusText(statusText: String) {}
+    fun onChangedStatusText(statusText: String) {
+        _uiState.update { it.copy(bindingModel =
+        uiState.value.bindingModel.copy(statusText = statusText)) }
+    }
 
     fun onClickPost() {}
 
