@@ -3,6 +3,7 @@ package com.dmm.bootcamp.yatter2023.ui.timeline
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Surface
@@ -20,6 +21,7 @@ class PublicTimelineActivity : AppCompatActivity() {
     private val viewModel: PublicTimelineViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("PublicTimeline", "onCreate")
         super.onCreate(savedInstanceState)
 
         setContent {

@@ -3,6 +3,7 @@ package com.dmm.bootcamp.yatter2023.ui.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Surface
@@ -22,6 +23,7 @@ class LoginActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("Login Activity", "onCreate")
         super.onCreate(savedInstanceState)
 
         viewModel.navigateToPublicTimeline.observe(this) {
