@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmm.bootcamp.yatter2023.domain.service.GetMeService
 import com.dmm.bootcamp.yatter2023.usecase.post.PostStatusUseCase
+import com.dmm.bootcamp.yatter2023.usecase.post.PostStatusUseCaseResult
 import com.dmm.bootcamp.yatter2023.util.SingleLiveEvent
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -42,7 +43,28 @@ class PostViewModel(
         uiState.value.bindingModel.copy(statusText = statusText)) }
     }
 
-    fun onClickPost() {}
+    // 投稿用ボタン押下時の挙動
+    fun onClickPost() {
+        // ローディング表示を行い投稿完了したら画面を戻るようにし、失敗ならそのままにする
+        viewModelScope.launch {
+            _uiState.update{ it.copy(isLoading = true) }
+
+            val result = postStatusUseCase.execute(
+                content = uiState.value.bindingModel.statusText,
+                attachmentList = listOf()
+            )
+            when (result) {
+                PostStatusUseCaseResult.Success -> {
+                    _goBack.value = Unit
+                }
+
+                is PostStatusUseCaseResult.Failure -> {
+                    // エラー表示
+                }
+            }
+            _uiState.update { it.copy(isLoading = false) }
+        }
+    }
 
     fun onClickNavIcon() {}
 }
