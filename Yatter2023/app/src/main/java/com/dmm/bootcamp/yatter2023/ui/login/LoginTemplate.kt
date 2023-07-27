@@ -21,6 +21,7 @@ import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dmm.bootcamp.yatter2023.ui.theme.Yatter2023Theme
 
 @Composable
