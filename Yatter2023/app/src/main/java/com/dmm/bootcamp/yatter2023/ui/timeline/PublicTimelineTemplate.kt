@@ -30,6 +30,7 @@ fun PublicTimelineTemplate(
     statusList: List<StatusBindingModel>,
     isLoading: Boolean,
     isRefreshing: Boolean,
+    onClickPost: () -> Unit,
     onRefresh: () -> Unit,
 ) {
     val pullRefreshState = rememberPullRefreshState(isRefreshing, onRefresh)
@@ -96,6 +97,7 @@ private fun PublicTimelineTemplatePreview() {
                 ),
                 isLoading = false,
                 isRefreshing = false,
+                onClickPost = {},
                 onRefresh = {},
             )
         }

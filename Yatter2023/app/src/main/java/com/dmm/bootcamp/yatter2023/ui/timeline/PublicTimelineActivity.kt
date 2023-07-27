@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Surface
+import com.dmm.bootcamp.yatter2023.ui.post.PostActivity
 import com.dmm.bootcamp.yatter2023.ui.theme.Yatter2023Theme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,8 +22,11 @@ class PublicTimelineActivity : AppCompatActivity() {
     private val viewModel: PublicTimelineViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("PublicTimeline", "onCreate")
         super.onCreate(savedInstanceState)
+
+        viewModel.navigateToPost.observe(this) {
+            startActivity(PostActivity.newIntent(this))
+        }
 
         setContent {
             Yatter2023Theme {
