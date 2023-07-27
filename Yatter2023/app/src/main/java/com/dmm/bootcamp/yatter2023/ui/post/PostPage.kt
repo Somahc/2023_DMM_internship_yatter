@@ -14,6 +14,6 @@ fun PostPage(viewModel: PostViewModel) {
         canPost = uiState.canPost,
         onStatusTextChanged = viewModel::onChangedStatusText,
         onClickPost = viewModel::onClickPost,
-        onClickNavIcon = viewModel::onClickNavIcon
+        onClickNavIcon = viewModel::onClickNavIcon,
     )
 }
