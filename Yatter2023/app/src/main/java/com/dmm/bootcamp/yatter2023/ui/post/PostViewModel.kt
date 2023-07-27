@@ -66,5 +66,8 @@ class PostViewModel(
         }
     }
 
-    fun onClickNavIcon() {}
+    // 戻るボタン用のメソッド
+    fun onClickNavIcon() {
+        _goBack.value = Unit
+    }
 }
