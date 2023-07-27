@@ -5,13 +5,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role.Companion.Button
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dmm.bootcamp.yatter2023.ui.theme.Yatter2023Theme
@@ -59,6 +66,7 @@ fun LoginTemplate(
                     placeholder = {
                         Text(text = "username")
                     },
+
                 )
 
                 Text(
@@ -76,6 +84,33 @@ fun LoginTemplate(
                         Text(text = "password")
                     },
                 )
+
+                Button(
+                    enabled = isEnableLogin,
+                    onClick = onClickLogin,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                ) {
+                    Text(text = "ログイン")
+                }
+
+                Divider(modifier = Modifier.padding(vertical = 16.dp))
+
+                Text(
+                    text = "初めてご利用の方は",
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.body2
+                )
+                TextButton(
+                    onClick = onClickRegister,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = "新規会員登録")
+                }
+            }
+            if (isLoading) {
+                CircularProgressIndicator()
             }
         }
     }
