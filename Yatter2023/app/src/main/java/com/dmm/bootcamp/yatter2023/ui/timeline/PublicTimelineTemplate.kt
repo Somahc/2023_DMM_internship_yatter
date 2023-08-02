@@ -16,17 +16,23 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -37,13 +43,26 @@ fun PublicTimelineTemplate(
     onClickPost: () -> Unit,
     onRefresh: () -> Unit,
 ) {
+    val scaffoldState = rememberScaffoldState()
+    val coroutineScope = rememberCoroutineScope()
     val pullRefreshState = rememberPullRefreshState(isRefreshing, onRefresh)
     Scaffold(
+        scaffoldState = scaffoldState,
+        drawerContent = {
+            Text("ここにドロワーの内容を追加する")
+        },
         topBar = {
             TopAppBar(
                 title = {
                     Text(text = "タイムライン")
                 },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        coroutineScope.launch { scaffoldState.drawerState.open() }
+                    }) {
+                        Icon(Icons.Filled.Menu, contentDescription = "Open drawer")
+                    }
+                }
             )
         },
         floatingActionButton = {
